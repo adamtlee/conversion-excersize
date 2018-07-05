@@ -93,7 +93,7 @@ const start = () => {
 const getFormattedObjects = objectArray => {
     // create a new array that contains your cleanly formatted objects
     // return this array
-    return [];
+    return []; //placeholder for now
 };
 
 start();
