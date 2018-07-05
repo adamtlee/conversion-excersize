@@ -81,7 +81,7 @@ const output = {
 
 // here is a start
 const start = () => {
-    const formattedObject = getFormattedObjects(output);
+    const formattedObject = getFormattedObjects(output.Items);
     console.log(`Our newly formatted objects: ${JSON.stringify(formattedObject)}`);
 };
 
@@ -93,7 +93,31 @@ const start = () => {
 const getFormattedObjects = objectArray => {
     // create a new array that contains your cleanly formatted objects
     // return this array
-    return []; //placeholder for now
+    const newFormat = objectArray.map(obj => {
+        return _formatObject(obj);
+    });
+    return newFormat;
+};
+
+const _formatObject = obj => {
+    const newObj = {};
+
+    // loop over each property, onvert it and assign it to our new object
+    for (const prop in obj) {
+        const value = _getValue(obj[prop]);
+        newObj[prop] = value;
+    }
+
+    return newObj;
+};
+
+const _getValue = prop => {
+    if (prop.S) {
+        return prop.S;
+    }
+    if (prop.N) {
+        return Number.parseFloat(prop.N);
+    }
 };
 
 start();
