@@ -1,3 +1,6 @@
+const Joi = require('joi'),
+    _ = require('lodash');
+
 const output = {
     "Items": [
         {
@@ -79,10 +82,32 @@ const output = {
  * 
  */
 
+const formattedSchema = {
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    country: Joi.string().required(),
+    winning: Joi.number().required(),
+    id: Joi.number().required(),
+};
+
+
 // here is a start
 const start = () => {
+    console.log('\n\nStarting Conversion\n')
     const formattedObject = getFormattedObjects(output);
-    console.log(`Our newly formatted objects: ${JSON.stringify(formattedObject)}`);
+
+    if (!_.isArray(formattedObject)) {
+        throw new Error(`"formattedObject" needs to be an array!`)
+    }
+
+    formattedObject.forEach(obj => {
+        const result = Joi.validate(obj, formattedSchema, { convert: false });
+        if (result.error) {
+            throw new Error(`Validation error: ${result.error.message}`);
+        }
+    })
+
+    console.log(`Our newly formatted objects: \n`, JSON.stringify(formattedObject, null, 2));
 };
 
 /**
@@ -93,7 +118,23 @@ const start = () => {
 const getFormattedObjects = objectArray => {
     // create a new array that contains your cleanly formatted objects
     // return this array
-    return []; //placeholder for now
+    return [
+        {
+            "firstName": "rob4",
+            "lastName": "toftness",
+            "country": "USA",
+            "id": 1,
+            "winning": 10
+        },
+        {
+            "firstName": "rob",
+            "lastName": "toftness",
+            "country": "USA",
+            "id": 2,
+            "winning": 100
+        }
+    ]; //placeholder for now
 };
 
 start();
+console.log('\nDone!');
