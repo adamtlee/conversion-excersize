@@ -94,7 +94,7 @@ const formattedSchema = {
 // here is a start
 const start = () => {
     console.log('\n\nStarting Conversion\n')
-    const formattedObject = getFormattedObjects(output);
+    const formattedObject = getFormattedObjects(output.Items);
 
     if (!_.isArray(formattedObject)) {
         throw new Error(`"formattedObject" needs to be an array!`)
@@ -117,23 +117,28 @@ const start = () => {
  */
 const getFormattedObjects = objectArray => {
     // create a new array that contains your cleanly formatted objects
-    // return this array
-    return [
-        {
-            "firstName": "rob4",
-            "lastName": "toftness",
-            "country": "USA",
-            "id": 1,
-            "winning": 10
-        },
-        {
-            "firstName": "rob",
-            "lastName": "toftness",
-            "country": "USA",
-            "id": 2,
-            "winning": 100
+    let S = "S"; 
+    let N = "N";
+
+    if(isObject(output)){
+        let keys = Object.keys(output);
+        while (keys.length) {
+            let key = keys.shift();
+            let types = output[key]; 
+
+            if (isObject(types) && types.hasOwnProperty(S)){
+                output[key] = type[S];
+            } else if (isObject(types) && types.hasOwnProperty(N)){ 
+                output[key] = type[N];
+            }
         }
-    ]; //placeholder for now
+    }
+    // return this array
+    console.log(output.Items);
+    return [output]; //placeholder for now
+    function isObject(value) {
+        return typeof value === "object" && value !== null;
+    }
 };
 
 start();
