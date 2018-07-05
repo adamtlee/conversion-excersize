@@ -1,3 +1,6 @@
+const Joi = require('joi'),
+    _ = require('lodash');
+
 const output = {
     "Items": [
         {
@@ -79,10 +82,32 @@ const output = {
  * 
  */
 
+const formattedSchema = {
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    country: Joi.string().required(),
+    winning: Joi.number().required(),
+    id: Joi.number().required(),
+};
+
+
 // here is a start
 const start = () => {
+    console.log('\n\nStarting Conversion\n')
     const formattedObject = getFormattedObjects(output.Items);
-    console.log(`Our newly formatted objects: ${JSON.stringify(formattedObject)}`);
+
+    if (!_.isArray(formattedObject)) {
+        throw new Error(`"formattedObject" needs to be an array!`)
+    }
+
+    formattedObject.forEach(obj => {
+        const result = Joi.validate(obj, formattedSchema, { convert: false });
+        if (result.error) {
+            throw new Error(`Validation error: ${result.error.message}`);
+        }
+    })
+
+    console.log(`Our newly formatted objects: \n`, JSON.stringify(formattedObject, null, 2));
 };
 
 /**
@@ -121,3 +146,4 @@ const _getValue = prop => {
 };
 
 start();
+console.log('\nDone!');
