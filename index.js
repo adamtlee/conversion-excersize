@@ -120,26 +120,28 @@ const getFormattedObjects = objectArray => {
     let S = "S"; 
     let N = "N";
 
-    if(isObject(output)){
-        let keys = Object.keys(output);
+    if(isObject(objectArray)){
+        let keys = Object.keys(objectArray);
         while (keys.length) {
             let key = keys.shift();
-            let types = output[key]; 
+            let types = objectArray[key]; 
 
             if (isObject(types) && types.hasOwnProperty(S)){
-                output[key] = type[S];
+                objectArray[key] = type[S];
             } else if (isObject(types) && types.hasOwnProperty(N)){ 
-                output[key] = type[N];
+                objectArray[key] = type[N];
             }
         }
+        return keys; 
     }
     // return this array
-    console.log(output.Items);
-    return [output]; //placeholder for now
+    //return [output]; //placeholder for now
+    
     function isObject(value) {
         return typeof value === "object" && value !== null;
     }
 };
+
 
 start();
 console.log('\nDone!');
