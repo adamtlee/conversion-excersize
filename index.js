@@ -121,18 +121,32 @@ const getFormattedObjects = objectArray => {
     let N = "N";
 
     if(isObject(objectArray)){
-        let keys = Object.keys(objectArray);
-        while (keys.length) {
-            let key = keys.shift();
-            let types = objectArray[key]; 
-
-            if (isObject(types) && types.hasOwnProperty(S)){
-                objectArray[key] = type[S];
-            } else if (isObject(types) && types.hasOwnProperty(N)){ 
-                objectArray[key] = type[N];
+        // 
+        for(let obj of objectArray) {
+            console.log(obj);
+            for(let key in obj){
+                if(obj[key].S !== undefined){
+                    obj[key] = obj[key].S;
+                    console.log(obj[key]);
+                } else if(obj[key].N !== undefined){
+                    obj[key] = parseInt(obj[key].N)
+                    console.log(obj[key]);
+                }
+                
             }
         }
-        return keys; 
+        return objectArray
+        // console.log(objectArray);
+        // while (keys.length) {
+        //     let key = keys.shift();
+        //     let types = objectArray[key]; 
+
+        //     if (isObject(types) && types.hasOwnProperty(S)){
+        //         objectArray[key] = type[S];
+        //     } else if (isObject(types) && types.hasOwnProperty(N)){ 
+        //         objectArray[key] = type[N];
+        //     }
+        // }
     }
     // return this array
     //return [output]; //placeholder for now
@@ -140,6 +154,7 @@ const getFormattedObjects = objectArray => {
     function isObject(value) {
         return typeof value === "object" && value !== null;
     }
+    return objectArray;
 };
 
 
