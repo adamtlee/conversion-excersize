@@ -1,0 +1,24 @@
+{
+  "name": "conversion-excersize",
+  "version": "1.0.0",
+  "description": "Write a function to convert a javascript JSON array with objects from one format to another.",
+  "main": "index.js",
+  "dependencies": {
+    "joi": "^13.4.0",
+    "lodash": "^4.17.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcdrummerman/conversion-excersize.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcdrummerman/conversion-excersize/issues"
+  },
+  "homepage": "https://github.com/mcdrummerman/conversion-excersize#readme"
+}
